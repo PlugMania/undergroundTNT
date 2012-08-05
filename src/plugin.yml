@@ -1,0 +1,16 @@
+name: utnt
+description: undergroundTNT - Control TNT to only explode underground
+author: nsordk & PlugMania
+main: info.plugmania.utnt.undergroundTNT
+version: 1.0.0
+commands:
+  utnt:
+    usage: /utnt
+    description: Root command brings up help on no args.
+permissions:
+  utnt.use:
+    description: Grant access to use of TNT underground.
+    default: false
+  utnt.admin:
+    description: Grant access to the change settings.
+    default: op
