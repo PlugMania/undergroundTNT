@@ -33,7 +33,7 @@ public class undergroundTNT extends JavaPlugin {
 		this.getConfig().options().copyDefaults(true);
         this.saveConfig();
 		
-        util.checkVersion(false, null, null);
+        //util.checkVersion(false, null, null);
 		if(this.getConfig().getBoolean("debug")) this.debug = true;
 		if(this.debug) getLogger().info("Debug enabled.");
 		
