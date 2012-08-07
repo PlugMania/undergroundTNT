@@ -22,6 +22,8 @@ public class Util{
 		plugin = instance;
 	}
 	
+	// -------------------------- Default Utility functions ---------------------------------------
+	
 	public void checkVersion(boolean isCmd, Player player,CommandSender sender){
 		
 		try {	

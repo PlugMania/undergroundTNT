@@ -1,14 +1,13 @@
 package info.plugmania.utnt.listeners;
 
-import info.plugmania.utnt.Util;
 import info.plugmania.utnt.undergroundTNT;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener {
 
@@ -19,24 +18,17 @@ public class PlayerListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(event.isCancelled()) return;
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
 		
-		/*
-		if(event.getClickedBlock().getType().equals(Material.TNT)) {
-			if(event.getItem().getType().equals(Material.FLINT_AND_STEEL)) {
-					player.sendMessage("TNT ignition certification started ...");
-					event.setCancelled(true);
-					
-					if(event.isCancelled()) {
-						player.sendMessage("Certification denied. Housing or surface too in range of explosion!");
-						event.getClickedBlock().breakNaturally();
-					}
-				}
+		if(plugin.store.stored.contains(player)) {
+			Location storedLoc = plugin.store.placed.get(player);
+			if(storedLoc.getBlock().getType().equals(Material.TNT)) {
+				storedLoc.getBlock().setType(Material.AIR);
+				plugin.store.placed.remove(player);
+				plugin.store.stored.remove(player);
 			}
 		}
-		*/
 	}
-	
-	
+		
 }

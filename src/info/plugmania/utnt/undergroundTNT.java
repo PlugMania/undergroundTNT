@@ -1,28 +1,33 @@
 package info.plugmania.utnt;
 
+import info.plugmania.utnt.helpers.Inspect;
+import info.plugmania.utnt.helpers.Store;
 import info.plugmania.utnt.listeners.BlockListener;
 import info.plugmania.utnt.listeners.PlayerListener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class undergroundTNT extends JavaPlugin {
 
+	public Store store;
+	public Inspect inspect;
 	public final Util util;
 	public final Commands cmds;
 	public boolean debug;
 	
 	public undergroundTNT() {
+		this.inspect = new Inspect(this);
 		this.util = new Util(this);
 		this.cmds = new Commands(this);
 	}
 	
 	public void onDisable (){
-
+		this.store.cleanup();
+		this.util.toLog("Monitored blocks removed", false);
 	}
 	
 	public void onEnable(){
@@ -33,6 +38,8 @@ public class undergroundTNT extends JavaPlugin {
 		this.getConfig().options().copyDefaults(true);
         this.saveConfig();
 		
+        store = new Store(this);
+        
         //util.checkVersion(false, null, null);
 		if(this.getConfig().getBoolean("debug")) this.debug = true;
 		if(this.debug) getLogger().info("Debug enabled.");
